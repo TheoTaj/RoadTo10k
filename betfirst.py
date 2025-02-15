@@ -74,7 +74,15 @@ def get_games(competition):
 
             team1 = j[0].text
             team2 = j[4].text
-            odds = [float(j[1].text), float(j[3].text), float(j[5].text)]
+
+            try:
+                a = float(j[1].text)
+                b = float(j[3].text)
+                c = float(j[5].text)
+            except:
+                continue
+
+            odds = [a, b, c]
             tuple = (team1, team2, odds)
 
             sizeGames = len(games)

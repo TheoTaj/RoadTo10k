@@ -14,11 +14,11 @@ competition_urls = {
         "bundesliga": "https://napoleonsports.be/fr-be/sport-bets/football/germany/bundesliga/all?ct=m",
         "premier-league": "https://napoleonsports.be/fr-be/sport-bets/football/england/premier-league/all",
         "serie-a": "https://napoleonsports.be/fr-be/sport-bets/football/italy/serie-a/all",
-        "primeira": "https://www.bwin.be/fr/sports/football-4/paris-sportifs/portugal-37/primeira-liga-102851",
-        "a-league": "https://www.bwin.be/fr/sports/football-4/paris-sportifs/australie-60/a-league-2068",
-        "bundesliga-austria": "https://www.bwin.be/fr/sports/football-4/paris-sportifs/autriche-8/bundesliga-102835",
-        "division-1a": "https://www.bwin.be/fr/sports/football-4/paris-sportifs/belgique-35/jupiler-pro-league-0:12",
-        "super-lig": "https://www.bwin.be/fr/sports/football-4/paris-sportifs/turquie-31/s%C3%BCper-lig-102832"
+        "primeira": "https://napoleonsports.be/fr-be/sport-bets/football/portugal/primeira-liga/all",
+        "a-league": "https://napoleonsports.be/fr-be/sport-bets/football/australia/a-league/all",
+        "bundesliga-austria": "https://napoleonsports.be/fr-be/sport-bets/football/austria/bundesliga/all",
+        "division-1a": "https://napoleonsports.be/fr-be/sport-bets/football/belgium/jupiler-pro-league/all",
+        "super-lig": "https://napoleonsports.be/fr-be/sport-bets/football/turkey/super-lig/all"
 	},
     'basketball':
     {
@@ -69,11 +69,12 @@ def get_games(competition):
         split2 = elements2[i].text.split("\n")
         if len(split2) < 8:
             continue
-        
-        a = float(split2[1])
-        b = float(split2[4])
-        c = float(split2[7])
-
+        try :
+            a = float(split2[1])
+            b = float(split2[4])
+            c = float(split2[7])
+        except:
+            continue
         games.append((
             team1,
             team2,

@@ -65,9 +65,12 @@ def get_games(competition):
         team2 = split1[1]
 
         split2 = elements2[i].text.split("\n")
-        a = float(split2[0])
-        b = float(split2[1])
-        c = float(split2[2])
+        try:
+            a = float(split2[0])
+            b = float(split2[1])
+            c = float(split2[2])
+        except:
+            continue
         games.append((team1, team2, [a, b, c]))
 
 

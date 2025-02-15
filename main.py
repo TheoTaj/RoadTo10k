@@ -80,10 +80,10 @@ def get_all_arbs():
 
 
 
-# sim1 = arb.str_similarity("Genoa", "Genoa CFC")
+# sim1 = arb.str_similarity("Royale Union SG", "Union SG")
 # print("sim1: ", sim1)
 
-# sim2 = arb.str_similarity("Venise", "Venezia")
+# sim2 = arb.str_similarity("Royale Union SG", "Union Saint-Gilloise")
 # print("sim2: ", sim2)
 
 # sim3 = arb.str_similarity("Betis Séville", "RealBetis")
@@ -102,8 +102,10 @@ def get_all_arbs():
 # games = napoleon.get_games({"sport": "football", "competition": "liga"})
 # print(games)
 
-start = t.time()
-arb.arb_serie_a()
-end = t.time()
-print("Time for seria: ", round(end - start, 2), " s")
-print()
+# start = t.time()
+# arb.arb_super_lig()
+# end = t.time()
+# print("Time for aleague: ", round(end - start, 2), " s")
+# print()
+
+get_all_arbs()

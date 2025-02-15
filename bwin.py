@@ -72,9 +72,13 @@ def get_games(competition):
 
             if len(split2) < 3:
                 continue
-            a = float(split2[0])
-            b = float(split2[1])
-            c = float(split2[2])
+
+            try:
+                a = float(split2[0])
+                b = float(split2[1])
+                c = float(split2[2])
+            except:
+                continue
 
 
             #vérifier si le tuple n'est pas déjà dans la liste, attention ne vérifier que les noms d'équipes car les odds peuvent changer.
@@ -92,7 +96,7 @@ def get_games(competition):
             
             if inserted == False:
                 games.append(tuple)
-                
+
         driver.find_element(by=By.TAG_NAME, value="body").send_keys(Keys.PAGE_DOWN)
         time.sleep(1) 
 
