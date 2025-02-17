@@ -9,6 +9,7 @@ import ladbrokes
 import bwin
 import log
 import napoleon
+import unibet
 
 # don't forget to : export DISPLAY=:0 on wsl !!
 
@@ -105,7 +106,7 @@ def get_all_arbs():
 # start = t.time()
 # arb.arb_super_lig()
 # end = t.time()
-# print("Time for aleague: ", round(end - start, 2), " s")
+# print("Time for ligue1: ", round(end - start, 2), " s")
 # print()
 
 get_all_arbs()
