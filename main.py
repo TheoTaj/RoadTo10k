@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
 import time as t
-import pmu
 import zebet
 import arb
 import requests
@@ -100,13 +99,14 @@ def get_all_arbs():
 
 # arb.get_arbs(bookies)
 
-# games = napoleon.get_games({"sport": "football", "competition": "liga"})
+# games = unibet.get_games({"sport": "football", "competition": "liga"})
 # print(games)
 
-# start = t.time()
-# arb.arb_super_lig()
-# end = t.time()
-# print("Time for ligue1: ", round(end - start, 2), " s")
-# print()
+start = t.time()
+arb.arb_super_lig()
+end = t.time()
+print("Time for ligue1: ", round(end - start, 2), " s")
+print()
 
-get_all_arbs()
+# get_all_arbs()
+

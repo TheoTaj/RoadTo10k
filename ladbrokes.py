@@ -38,7 +38,7 @@ def get_page(competition):
     chrome_options.add_argument("--headless")
     driver = webdriver.Chrome(options=chrome_options)
     driver.get(url)
-    time.sleep(3)
+    time.sleep(15)
 
     return driver
 

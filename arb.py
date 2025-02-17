@@ -1,6 +1,5 @@
 from difflib import SequenceMatcher
 import logging as log
-import pmu
 import zebet
 import betfirst
 import ladbrokes

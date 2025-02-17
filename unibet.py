@@ -5,6 +5,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.chrome.service import Service
 
 
 competition_urls = {
@@ -38,9 +39,10 @@ def get_page(competition):
 
     chrome_options = Options()
     chrome_options.add_argument("--headless")
-    driver = webdriver.Chrome(options=chrome_options)
+    service = Service("/home/pi/my_env/bin/chromedriver")
+    driver = webdriver.Chrome(service = service, options=chrome_options)
     driver.get(url)
-    time.sleep(5)
+    time.sleep(15)
 
     return driver
 
