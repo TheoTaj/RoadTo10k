@@ -10,13 +10,12 @@ import log
 import napoleon
 import unibet
 import betcenter
-import circus
 import scooore
 
 # don't forget to : export DISPLAY=:0 on wsl !!
 
 def get_all_arbs():
-    startTotal = t.time()
+    
     start = t.time()
     arb.arb_ligue1()
     end = t.time()
@@ -95,8 +94,7 @@ def get_all_arbs():
     print("Time for conference league: ", round(end - start, 2), " s")
     print()
 
-    endTotal = t.time()
-    print("Total time: ", round(endTotal - startTotal, 2), " s")
+    
 
 
 #_________________________________________________________________________________________
@@ -119,13 +117,22 @@ def get_all_arbs():
 
 # single league test w all bookmakers:
 
-start = t.time()
-arb.arb_conference_league()
-end = t.time()
-print("Time for ligue1: ", round(end - start, 2), " s")
-print()
+# start = t.time()
+# arb.arb_ligue1()
+# end = t.time()
+# print("Time for ligue1: ", round(end - start, 2), " s")
+# print()
 
 #_________________________________________________________________________________________
 
-# get_all_arbs()
 
+
+
+while True:
+    startTotal = t.time()
+    get_all_arbs()
+    endTotal = t.time()
+    delta = round(endTotal - startTotal, 2)
+    print("Total time: ", delta, " s")
+
+    time.sleep(3600 - delta)

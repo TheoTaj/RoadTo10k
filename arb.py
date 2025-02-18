@@ -1,4 +1,5 @@
 from difflib import SequenceMatcher
+import time as t
 import logging as log
 import zebet
 import betfirst
@@ -8,7 +9,6 @@ import log
 import napoleon
 import unibet
 import betcenter
-import circus
 import scooore
 
 
@@ -217,7 +217,7 @@ def arb_ligue1():
     unibetGames = unibet.get_games({"sport": "football", "competition": "ligue1"})
     betcenterGames = betcenter.get_games({"sport": "football", "competition": "ligue1"})
     scoooreGames = scooore.get_games({"sport": "football", "competition": "ligue1"})
-    
+
     print("len betfirstGames", len(betfirstGames))
     print("len zebetGames", len(zebetGames))
     print("len ladbrokesGames", len(ladbrokesGames))
