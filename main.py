@@ -10,6 +10,8 @@ import log
 import napoleon
 import unibet
 import betcenter
+import circus
+import scooore
 
 # don't forget to : export DISPLAY=:0 on wsl !!
 
@@ -84,15 +86,21 @@ def get_all_arbs():
     start = t.time()
     arb.arb_europa_league()
     end = t.time()
-    print("Time for champions league: ", round(end - start, 2), " s")
+    print("Time for europa league: ", round(end - start, 2), " s")
+    print()
+
+    start = t.time()
+    arb.arb_conference_league()
+    end = t.time()
+    print("Time for conference league: ", round(end - start, 2), " s")
     print()
 
     endTotal = t.time()
     print("Total time: ", round(endTotal - startTotal, 2), " s")
 
 
-
-
+#_________________________________________________________________________________________
+# similarity test:
 
 # sim2 = arb.str_similarity("Royale Union SG", "Union Saint-Gilloise")
 # print("sim2: ", sim2)
@@ -100,24 +108,24 @@ def get_all_arbs():
 # sim3 = arb.str_similarity("Betis Séville", "RealBetis")
 # print("sim3: ", sim3)
 
-# betfirstGames = [('RedBullSalzbourg', 'WSGTirol', [1.23, 5.1, 8.25])]
-# bwinGames = [('RedBullSalzbourg', 'WSGTirol', [8, 5.1, 1])]
+#_________________________________________________________________________________________
 
-# bookies = []
+# single bookmaker test:
 
-# bookies.append(("betfirst", betfirstGames))
-# bookies.append(("bwin", bwinGames))
-
-# arb.get_arbs(bookies)
-
-# games = unibet.get_basket({"sport": "basketball", "competition": "nba"})
+# games = scooore.get_games({"sport": "football", "competition": "ligue1"})
 # print(games)
 
-# start = t.time()
-# arb.arb_europa_league()
-# end = t.time()
-# print("Time for ligue1: ", round(end - start, 2), " s")
-# print()
+#_________________________________________________________________________________________
 
-get_all_arbs()
+# single league test w all bookmakers:
+
+start = t.time()
+arb.arb_conference_league()
+end = t.time()
+print("Time for ligue1: ", round(end - start, 2), " s")
+print()
+
+#_________________________________________________________________________________________
+
+# get_all_arbs()
 

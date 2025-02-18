@@ -22,7 +22,8 @@ competition_urls = {
         "division-1a": "https://fr.unibetsports.be/betting/sports/filter/football/belgium/jupiler_pro_league/all/matches",
         "super-lig": "https://fr.unibetsports.be/betting/sports/filter/football/turkey/super_lig/all/matches",
         "champions-league": "https://fr.unibetsports.be/betting/sports/filter/football/champions_league/all/matches",
-        "europa-league": "https://fr.unibetsports.be/betting/sports/filter/football/europa_league/all/matches"
+        "europa-league": "https://fr.unibetsports.be/betting/sports/filter/football/europa_league/all/matches",
+        "europa-conference": "https://fr.unibetsports.be/betting/sports/filter/football/conference_league/all/matches"
 	},
     'basketball':
     {
@@ -100,22 +101,17 @@ def get_basket(competition):
     diff = abs(len(elements1) - len(elements2))
 
     for i in range(min(len(elements1), len(elements2))):
-        # split1 = elements1[i + diff].text.split("\n")
-        # split2 = elements2[i].text.split("\n")
+        split1 = elements1[i + diff].text.split("\n")
+        split2 = elements2[i].text.split("\n")
 
-        # team1 = split1[0]
-        # team2 = split1[1]
-        # try:
-        #     a = float(split2[0])
-        #     b = float(split2[1])
-        #     c = float(split2[2])
-        # except:
-        #     continue
+        team1 = split1[0]
+        team2 = split1[1]
+        try:
+            a = float(split2[0])
+            b = float(split2[1])
+        except:
+            continue
         
-        # games.append((team1, team2, [a, b, c]))
-        print(elements1[i].text)
-        print()
-        print(elements2[i].text)
-        print("___________________")
+        games.append((team1, team2, [a, b]))
     
     return games

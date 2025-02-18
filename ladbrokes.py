@@ -21,7 +21,8 @@ competition_urls = {
         "division-1a": "https://www.ladbrokes.be/fr/sports/#!/calcio/be-jupiler-pro-league1/",
         "super-lig": "https://www.ladbrokes.be/fr/sports/#!/calcio/tr-super-lig/",
         "champions-league": "https://www.ladbrokes.be/fr/sports/#!/calcio/eu-champions-league/",
-        "europa-league": "https://www.ladbrokes.be/fr/sports/#!/calcio/eu-europa-league/"
+        "europa-league": "https://www.ladbrokes.be/fr/sports/#!/calcio/eu-europa-league/",
+        "europa-conference": "https://www.ladbrokes.be/fr/sports/#!/calcio/eu-europa-conference-league/"
 	},
     'basketball':
     {

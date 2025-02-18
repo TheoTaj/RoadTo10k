@@ -22,7 +22,8 @@ competition_urls = {
         "division-1a": "https://www.bwin.be/fr/sports/football-4/paris-sportifs/belgique-35/jupiler-pro-league-0:12",
         "super-lig": "https://www.bwin.be/fr/sports/football-4/paris-sportifs/turquie-31/s%C3%BCper-lig-102832",
         "champions-league": "https://www.bwin.be/en/sports/football-4/betting/europe-7/uefa-champions-league-0:3",
-        "europa-league": "https://www.bwin.be/fr/sports/football-4/paris-sportifs/europe-7/europa-league-0:5"
+        "europa-league": "https://www.bwin.be/fr/sports/football-4/paris-sportifs/europe-7/europa-league-0:5",
+        "europa-conference": "https://www.bwin.be/fr/sports/football-4/paris-sportifs/europe-7/conference-league-0:9"
 	},
     'basketball':
     {

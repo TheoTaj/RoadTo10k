@@ -16,7 +16,8 @@ competition_urls = {
 		"division-1a": "https://www.zebet.be/fr/competition/101-belgique_jupiler_pro_league",
 		"super-lig": "https://www.zebet.be/fr/competition/254-turquie_super_lig",
 		"champions-league": "https://www.zebet.be/fr/competition/6674-ligue_des_champions",
-		"europa-league": "https://www.zebet.be/fr/competition/6675-ligue_europa"
+		"europa-league": "https://www.zebet.be/fr/competition/6675-ligue_europa",
+		"europa-conference": "https://www.zebet.be/fr/competition/41817-conference_league"
 	},
 	'basketball':
 	{

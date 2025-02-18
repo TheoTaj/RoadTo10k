@@ -22,7 +22,8 @@ competition_urls = {
         "division-1a": "https://www.betcenter.be/fr/football/belgique-pro-league",
         "super-lig": "https://www.betcenter.be/fr/football/turquie-super-lig",
         "champions-league": "https://www.betcenter.be/fr/football/ligue-des-champions-de-l-uefa",
-        "europa-league": "https://www.betcenter.be/fr/ligue-europa"
+        "europa-league": "https://www.betcenter.be/fr/ligue-europa",
+        "europa-conference": "https://www.betcenter.be/fr/ligue-de-conference"
 	},
     'basketball':
     {
