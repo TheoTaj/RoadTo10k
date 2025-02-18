@@ -9,6 +9,7 @@ import bwin
 import log
 import napoleon
 import unibet
+import betcenter
 
 # don't forget to : export DISPLAY=:0 on wsl !!
 
@@ -99,13 +100,13 @@ def get_all_arbs():
 
 # arb.get_arbs(bookies)
 
-# games = unibet.get_games({"sport": "football", "competition": "liga"})
+# games = betcenter.get_games({"sport": "football", "competition": "ligue1"})
 # print(games)
 
 start = t.time()
 arb.arb_champions_league()
 end = t.time()
-print("Time for cl: ", round(end - start, 2), " s")
+print("Time for ligue1: ", round(end - start, 2), " s")
 print()
 
 # get_all_arbs()

@@ -7,10 +7,11 @@ import bwin
 import log
 import napoleon
 import unibet
+import betcenter
 
 
 mismatch_ligue1 = [["Brest", "Stade Brestois"], ["Olympique Marseille", "Marseille"], ["ParisSG", "Paris Saint-Germain"], ["ParisSG", "PSG"], ["Lyon", "Olympique Lyonnais"],
-    ["Reims", "Stade Reims"], ["Lens", "RC Lens"], ["Nice", "OGC Nice"], ["Rennes", "Stade Rennais"], ["Olympique Lyon", "Lyon"]]
+    ["Reims", "Stade Reims"], ["Lens", "RC Lens"], ["Nice", "OGC Nice"], ["Rennes", "Stade Rennais"], ["Olympique Lyon", "Lyon"], ["PSG", "Paris SG"], ["Lyon", "Olympique Lyon"]]
 
 mismatch_liga = [["Girona FC", "FC Gerone"], ["Girona FC", "Gérone"], ["Deportivo Alaves", "Alavés"], ["Deportivo Alaves", "Alaves"], ["DeportivoAlavés", "Alaves"], ["DeportivoAlavés", "Alavés"],
     ["Atlético Madrid", "Atlético"], ["Espanyol Barcelone", "Espanyol"], ["Athletic Bilbao", "Bilbao"], ["Betis Séville", "Real Betis Balompie"], ["Betis Séville", "Betis"], 
@@ -199,6 +200,7 @@ def arb_ligue1():
     bwinGames = bwin.get_games({"sport": "football", "competition": "ligue1"})
     napoleonGames = napoleon.get_games({"sport": "football", "competition": "ligue1"})
     unibetGames = unibet.get_games({"sport": "football", "competition": "ligue1"})
+    betcenterGames = betcenter.get_games({"sport": "football", "competition": "ligue1"})
     
     print("len betfirstGames", len(betfirstGames))
     print("len zebetGames", len(zebetGames))
@@ -206,6 +208,7 @@ def arb_ligue1():
     print("len bwinGames", len(bwinGames))
     print("len napoleonGames", len(napoleonGames))
     print("len unibetGames", len(unibetGames))
+    print("len betcenterGames", len(betcenterGames))
 
     bookies.append(("zebet", zebetGames))
     bookies.append(("betfirst", betfirstGames))
@@ -213,13 +216,13 @@ def arb_ligue1():
     bookies.append(("bwin", bwinGames))
     bookies.append(("napoleon", napoleonGames))
     bookies.append(("unibet", unibetGames))
+    bookies.append(("betcenter", betcenterGames))
     
     bookies.sort(key=lambda x: len(x[1]), reverse=True)
     for bo in bookies:
         print(bo)
     
     get_arbs(bookies, mismatch_ligue1)
-
 
 def arb_liga():
     bookies = []
@@ -231,6 +234,7 @@ def arb_liga():
     bwinGames = bwin.get_games({"sport": "football", "competition": "liga"})
     napoleonGames = napoleon.get_games({"sport": "football", "competition": "liga"})
     unibetGames = unibet.get_games({"sport": "football", "competition": "liga"})
+    betcenterGames = betcenter.get_games({"sport": "football", "competition": "liga"})
 
     print("len betfirstGames", len(betfirstGames))
     print("len zebetGames", len(zebetGames))
@@ -238,6 +242,7 @@ def arb_liga():
     print("len bwinGames", len(bwinGames))
     print("len napoleonGames", len(napoleonGames))
     print("len unibetGames", len(unibetGames))
+    print("len betcenterGames", len(betcenterGames))
 
     bookies.append(("zebet", zebetGames))
     bookies.append(("betfirst", betfirstGames))
@@ -245,7 +250,7 @@ def arb_liga():
     bookies.append(("bwin", bwinGames))
     bookies.append(("napoleon", napoleonGames))
     bookies.append(("unibet", unibetGames))
-
+    bookies.append(("betcenter", betcenterGames))
 
     bookies.sort(key=lambda x: len(x[1]), reverse=True)
 
@@ -265,6 +270,7 @@ def arb_bundesliga():
     bwinGames = bwin.get_games({"sport": "football", "competition": "bundesliga"})
     napoleonGames = napoleon.get_games({"sport": "football", "competition": "bundesliga"})
     unibetGames = unibet.get_games({"sport": "football", "competition": "bundesliga"})
+    betcenterGames = betcenter.get_games({"sport": "football", "competition": "bundesliga"})
 
     print("len betfirstGames", len(betfirstGames))
     print("len zebetGames", len(zebetGames))
@@ -272,6 +278,7 @@ def arb_bundesliga():
     print("len bwinGames", len(bwinGames))
     print("len napoleonGames", len(napoleonGames))
     print("len unibetGames", len(unibetGames))
+    print("len betcenterGames", len(betcenterGames))
 
     bookies.append(("zebet", zebetGames))
     bookies.append(("betfirst", betfirstGames))
@@ -279,6 +286,7 @@ def arb_bundesliga():
     bookies.append(("bwin", bwinGames))
     bookies.append(("napoleon", napoleonGames))
     bookies.append(("unibet", unibetGames))
+    bookies.append(("betcenter", betcenterGames))
 
     bookies.sort(key=lambda x: len(x[1]), reverse=True)
 
@@ -299,6 +307,7 @@ def arb_premier_league():
     bwinGames = bwin.get_games({"sport":"football", "competition":"premier-league"})
     napoleonGames = napoleon.get_games({"sport": "football", "competition": "premier-league"})
     unibetGames = unibet.get_games({"sport": "football", "competition": "premier-league"})
+    betcenterGames = betcenter.get_games({"sport": "football", "competition": "premier-league"})
 
     print("len betfirstGames", len(betfirstGames))
     print("len zebetGames", len(zebetGames))
@@ -306,6 +315,7 @@ def arb_premier_league():
     print("len bwinGames", len(bwinGames))
     print("len napoleonGames", len(napoleonGames))
     print("len unibetGames", len(unibetGames))
+    print("len betcenterGames", len(betcenterGames))
 
     bookies.append(("zebet", zebetGames))
     bookies.append(("betfirst", betfirstGames))
@@ -313,6 +323,7 @@ def arb_premier_league():
     bookies.append(("bwin", bwinGames))
     bookies.append(("napoleon", napoleonGames))
     bookies.append(("unibet", unibetGames))
+    bookies.append(("betcenter", betcenterGames))
 
     bookies.sort(key=lambda x: len(x[1]), reverse=True)
 
@@ -333,6 +344,7 @@ def arb_serie_a():
     bwinGames = bwin.get_games({"sport":"football", "competition":"serie-a"})
     napoleonGames = napoleon.get_games({"sport": "football", "competition": "serie-a"})
     unibetGames = unibet.get_games({"sport": "football", "competition": "serie-a"})
+    betcenterGames = betcenter.get_games({"sport": "football", "competition": "serie-a"})
 
     print("len betfirstGames", len(betfirstGames))
     print("len zebetGames", len(zebetGames))
@@ -340,6 +352,7 @@ def arb_serie_a():
     print("len bwinGames", len(bwinGames))
     print("len napoleonGames", len(napoleonGames))
     print("len unibetGames", len(unibetGames))
+    print("len betcenterGames", len(betcenterGames))
 	
     bookies.append(("zebet", zebetGames))
     bookies.append(("betfirst", betfirstGames))
@@ -347,6 +360,7 @@ def arb_serie_a():
     bookies.append(("bwin", bwinGames))
     bookies.append(("napoleon", napoleonGames))
     bookies.append(("unibet", unibetGames))
+    bookies.append(("betcenter", betcenterGames))
 
     bookies.sort(key=lambda x: len(x[1]), reverse=True)
     for bo in bookies:
@@ -365,6 +379,7 @@ def arb_primeira():
     bwinGames = bwin.get_games({"sport":"football", "competition":"primeira"})
     napoleonGames = napoleon.get_games({"sport": "football", "competition": "primeira"})
     unibetGames = unibet.get_games({"sport": "football", "competition": "primeira"})
+    betcenterGames = betcenter.get_games({"sport": "football", "competition": "primeira"})
 
     print("len betfirstGames", len(betfirstGames))
     print("len zebetGames", len(zebetGames))
@@ -372,6 +387,7 @@ def arb_primeira():
     print("len bwinGames", len(bwinGames))
     print("len napoleonGames", len(napoleonGames))
     print("len unibetGames", len(unibetGames))
+    print("len betcenterGames", len(betcenterGames))
 
     bookies.append(("zebet", zebetGames))
     bookies.append(("betfirst", betfirstGames))
@@ -379,6 +395,7 @@ def arb_primeira():
     bookies.append(("bwin", bwinGames))
     bookies.append(("napoleon", napoleonGames))
     bookies.append(("unibet", unibetGames))
+    bookies.append(("betcenter", betcenterGames))
     
     bookies.sort(key=lambda x: len(x[1]), reverse=True)
     for bo in bookies:
@@ -397,6 +414,7 @@ def arb_a_league():
     bwinGames = bwin.get_games({"sport":"football", "competition":"a-league"})
     napoleonGames = napoleon.get_games({"sport": "football", "competition": "a-league"})
     unibetGames = unibet.get_games({"sport": "football", "competition": "a-league"})
+    betcenterGames = betcenter.get_games({"sport": "football", "competition": "a-league"})
 
     print("len betfirstGames", len(betfirstGames))
     print("len zebetGames", len(zebetGames))
@@ -404,6 +422,7 @@ def arb_a_league():
     print("len bwinGames", len(bwinGames))
     print("len napoleonGames", len(napoleonGames))
     print("len unibetGames", len(unibetGames))
+    print("len betcenterGames", len(betcenterGames))
 
     bookies.append(("zebet", zebetGames))
     bookies.append(("betfirst", betfirstGames))
@@ -411,6 +430,7 @@ def arb_a_league():
     bookies.append(("bwin", bwinGames))
     bookies.append(("napoleon", napoleonGames))
     bookies.append(("unibet", unibetGames))
+    bookies.append(("betcenter", betcenterGames))
 
     bookies.sort(key=lambda x: len(x[1]), reverse=True)
     for bo in bookies:
@@ -429,6 +449,7 @@ def arb_bundesliga_austria():
     bwinGames = bwin.get_games({"sport":"football", "competition":"bundesliga-austria"})
     napoleonGames = napoleon.get_games({"sport": "football", "competition": "bundesliga-austria"})
     unibetGames = unibet.get_games({"sport": "football", "competition": "bundesliga-austria"})
+    betcenterGames = betcenter.get_games({"sport": "football", "competition": "bundesliga-austria"})
 
     print("len betfirstGames", len(betfirstGames))
     print("len zebetGames", len(zebetGames))
@@ -436,6 +457,7 @@ def arb_bundesliga_austria():
     print("len bwinGames", len(bwinGames))
     print("len napoleonGames", len(napoleonGames))
     print("len unibetGames", len(unibetGames))
+    print("len betcenterGames", len(betcenterGames))
 
     bookies.append(("zebet", zebetGames))
     bookies.append(("betfirst", betfirstGames))
@@ -443,6 +465,7 @@ def arb_bundesliga_austria():
     bookies.append(("bwin", bwinGames))
     bookies.append(("napoleon", napoleonGames))
     bookies.append(("unibet", unibetGames))
+    bookies.append(("betcenter", betcenterGames))
 
     bookies.sort(key=lambda x: len(x[1]), reverse=True)
     for bo in bookies:
@@ -460,6 +483,7 @@ def arb_division_1a():
     bwinGames = bwin.get_games({"sport":"football", "competition":"division-1a"})
     napoleonGames = napoleon.get_games({"sport": "football", "competition": "division-1a"})
     unibetGames = unibet.get_games({"sport": "football", "competition": "division-1a"})
+    betcenterGames = betcenter.get_games({"sport": "football", "competition": "division-1a"})
 
     print("len betfirstGames", len(betfirstGames))
     print("len zebetGames", len(zebetGames))
@@ -467,6 +491,7 @@ def arb_division_1a():
     print("len bwinGames", len(bwinGames))
     print("len napoleonGames", len(napoleonGames))
     print("len unibetGames", len(unibetGames))
+    print("len betcenterGames", len(betcenterGames))
 
     bookies.append(("zebet", zebetGames))
     bookies.append(("betfirst", betfirstGames))
@@ -474,6 +499,7 @@ def arb_division_1a():
     bookies.append(("bwin", bwinGames))
     bookies.append(("napoleon", napoleonGames))
     bookies.append(("unibet", unibetGames))
+    bookies.append(("betcenter", betcenterGames))
 
     bookies.sort(key=lambda x: len(x[1]), reverse=True)
     for bo in bookies:
@@ -492,6 +518,7 @@ def arb_super_lig():
     bwinGames = bwin.get_games({"sport":"football", "competition":"super-lig"})
     napoleonGames = napoleon.get_games({"sport": "football", "competition": "super-lig"})
     unibetGames = unibet.get_games({"sport": "football", "competition": "super-lig"})
+    betcenterGames = betcenter.get_games({"sport": "football", "competition": "super-lig"})
 	
     print("len betfirstGames", len(betfirstGames))
     print("len zebetGames", len(zebetGames))
@@ -499,6 +526,7 @@ def arb_super_lig():
     print("len bwinGames", len(bwinGames))
     print("len napoleonGames", len(napoleonGames))
     print("len unibetGames", len(unibetGames))
+    print("len betcenterGames", len(betcenterGames))
 
     bookies.append(("zebet", zebetGames))
     bookies.append(("betfirst", betfirstGames))
@@ -506,6 +534,7 @@ def arb_super_lig():
     bookies.append(("bwin", bwinGames))
     bookies.append(("napoleon", napoleonGames))
     bookies.append(("unibet", unibetGames))
+    bookies.append(("betcenter", betcenterGames))
 
     bookies.sort(key=lambda x: len(x[1]), reverse=True)
     for bo in bookies:
@@ -514,8 +543,6 @@ def arb_super_lig():
     get_arbs(bookies, mismatch_super_lig)
 
     return 
-
-
 
 def arb_champions_league():
     bookies = []
@@ -526,6 +553,7 @@ def arb_champions_league():
     bwinGames = bwin.get_games({"sport":"football", "competition":"champions-league"})
     napoleonGames = napoleon.get_games({"sport": "football", "competition": "champions-league"})
     unibetGames = unibet.get_games({"sport": "football", "competition": "champions-league"})
+    betcenterGames = betcenter.get_games({"sport": "football", "competition": "champions-league"})
 
     print("len betfirstGames", len(betfirstGames))
     print("len zebetGames", len(zebetGames))
@@ -533,6 +561,7 @@ def arb_champions_league():
     print("len bwinGames", len(bwinGames))
     print("len napoleonGames", len(napoleonGames))
     print("len unibetGames", len(unibetGames))
+    print("len betcenterGames", len(betcenterGames))
 
     bookies.append(("zebet", zebetGames))
     bookies.append(("betfirst", betfirstGames))
@@ -540,6 +569,7 @@ def arb_champions_league():
     bookies.append(("bwin", bwinGames))
     bookies.append(("napoleon", napoleonGames))
     bookies.append(("unibet", unibetGames))
+    bookies.append(("betcenter", betcenterGames))
 
     bookies.sort(key=lambda x: len(x[1]), reverse=True)
     for bo in bookies:
