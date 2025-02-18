@@ -515,6 +515,40 @@ def arb_super_lig():
 
     return 
 
+
+
+def arb_champions_league():
+    bookies = []
+
+    zebetGames = zebet.get_games({"sport": "football", "competition": "champions-league"})
+    betfirstGames = betfirst.get_games({"sport": "football", "competition": "champions-league"})
+    ladbrokesGames = ladbrokes.get_games({"sport": "football", "competition": "champions-league"})
+    bwinGames = bwin.get_games({"sport":"football", "competition":"champions-league"})
+    napoleonGames = napoleon.get_games({"sport": "football", "competition": "champions-league"})
+    unibetGames = unibet.get_games({"sport": "football", "competition": "champions-league"})
+
+    print("len betfirstGames", len(betfirstGames))
+    print("len zebetGames", len(zebetGames))
+    print("len ladbrokesGames", len(ladbrokesGames))
+    print("len bwinGames", len(bwinGames))
+    print("len napoleonGames", len(napoleonGames))
+    print("len unibetGames", len(unibetGames))
+
+    bookies.append(("zebet", zebetGames))
+    bookies.append(("betfirst", betfirstGames))
+    bookies.append(("ladbrokes", ladbrokesGames))
+    bookies.append(("bwin", bwinGames))
+    bookies.append(("napoleon", napoleonGames))
+    bookies.append(("unibet", unibetGames))
+
+    bookies.sort(key=lambda x: len(x[1]), reverse=True)
+    for bo in bookies:
+        print(bo)
+
+    mismatch = mismatch_ligue1 + mismatch_liga + mismatch_bundesliga + mismatch_premier_league + msimatch_serie_a + mismatch_primeria + mismatch_a_league + mismatch_bundesliga_austria + mismatch_division_1a + mismatch_super_lig
+    get_arbs(bookies, mismatch)
+    return 
+
 def arb_nba():
     bookies = []
 	# pmuGames = []

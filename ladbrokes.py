@@ -19,7 +19,8 @@ competition_urls = {
         "a-league": "https://www.ladbrokes.be/fr/sports/#!/calcio/au-a-league/",
         "bundesliga-austria": "https://www.ladbrokes.be/fr/sports/#!/calcio/at-bundesliga/",
         "division-1a": "https://www.ladbrokes.be/fr/sports/#!/calcio/be-jupiler-pro-league1/",
-        "super-lig": "https://www.ladbrokes.be/fr/sports/#!/calcio/tr-super-lig/"
+        "super-lig": "https://www.ladbrokes.be/fr/sports/#!/calcio/tr-super-lig/",
+        "champions-league": "https://www.ladbrokes.be/fr/sports/#!/calcio/eu-champions-league/"
 	},
     'basketball':
     {
@@ -37,10 +38,9 @@ def get_page(competition):
 
     chrome_options = Options()
     chrome_options.add_argument("--headless")
-    service = Service("/home/pi/my_env/bin/chromedriver")
-    driver = webdriver.Chrome(service = service, options=chrome_options)
+    driver = webdriver.Chrome(options=chrome_options)
     driver.get(url)
-    time.sleep(15)
+    time.sleep(5)
 
     return driver
 

@@ -15,6 +15,7 @@ competition_urls = {
 		"bundesliga-austria": "https://www.zebet.be/fr/competition/131-autriche_bundesliga",
 		"division-1a": "https://www.zebet.be/fr/competition/101-belgique_jupiler_pro_league",
 		"super-lig": "https://www.zebet.be/fr/competition/254-turquie_super_lig",
+		"champions-league": "https://www.zebet.be/fr/competition/6674-ligue_des_champions"
 	},
 	'basketball':
 	{

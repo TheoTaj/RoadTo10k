@@ -19,7 +19,8 @@ competition_urls = {
         "a-league": "https://napoleonsports.be/fr-be/sport-bets/football/australia/a-league/all",
         "bundesliga-austria": "https://napoleonsports.be/fr-be/sport-bets/football/austria/bundesliga/all",
         "division-1a": "https://napoleonsports.be/fr-be/sport-bets/football/belgium/jupiler-pro-league/all",
-        "super-lig": "https://napoleonsports.be/fr-be/sport-bets/football/turkey/super-lig/all"
+        "super-lig": "https://napoleonsports.be/fr-be/sport-bets/football/turkey/super-lig/all",
+        "champions-league": "https://napoleonsports.be/fr-be/sport-bets/football/international-clubs/uefa-champions-league/all?cpi=7&ct=m"
 	},
     'basketball':
     {
@@ -37,10 +38,9 @@ def get_page(competition):
 
     chrome_options = Options()
     chrome_options.add_argument("--headless")
-    service = Service("/home/pi/my_env/bin/chromedriver")
-    driver = webdriver.Chrome(service = service, options=chrome_options)
+    driver = webdriver.Chrome(options=chrome_options)
     driver.get(url)
-    time.sleep(15)
+    time.sleep(5)
 
     return driver
 

@@ -103,9 +103,9 @@ def get_all_arbs():
 # print(games)
 
 start = t.time()
-arb.arb_super_lig()
+arb.arb_champions_league()
 end = t.time()
-print("Time for ligue1: ", round(end - start, 2), " s")
+print("Time for cl: ", round(end - start, 2), " s")
 print()
 
 # get_all_arbs()

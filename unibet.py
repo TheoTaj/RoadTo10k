@@ -20,7 +20,8 @@ competition_urls = {
         "a-league": "https://fr.unibetsports.be/betting/sports/filter/football/australia/a-league/all/matches",
         "bundesliga-austria": "https://fr.unibetsports.be/betting/sports/filter/football/austria/bundesliga/all/matches",
         "division-1a": "https://fr.unibetsports.be/betting/sports/filter/football/belgium/jupiler_pro_league/all/matches",
-        "super-lig": "https://fr.unibetsports.be/betting/sports/filter/football/turkey/super_lig/all/matches"
+        "super-lig": "https://fr.unibetsports.be/betting/sports/filter/football/turkey/super_lig/all/matches",
+        "champions-league": "https://fr.unibetsports.be/betting/sports/filter/football/champions_league/all/matches"
 	},
     'basketball':
     {
@@ -39,10 +40,11 @@ def get_page(competition):
 
     chrome_options = Options()
     chrome_options.add_argument("--headless")
-    service = Service("/home/pi/my_env/bin/chromedriver")
-    driver = webdriver.Chrome(service = service, options=chrome_options)
+    # service = Service("/home/pi/my_env/bin/chromedriver")
+    # driver = webdriver.Chrome(service = service, options=chrome_options)
+    driver = webdriver.Chrome(options=chrome_options)
     driver.get(url)
-    time.sleep(15)
+    time.sleep(5)
 
     return driver
 

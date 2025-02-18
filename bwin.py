@@ -20,7 +20,8 @@ competition_urls = {
         "a-league": "https://www.bwin.be/fr/sports/football-4/paris-sportifs/australie-60/a-league-2068",
         "bundesliga-austria": "https://www.bwin.be/fr/sports/football-4/paris-sportifs/autriche-8/bundesliga-102835",
         "division-1a": "https://www.bwin.be/fr/sports/football-4/paris-sportifs/belgique-35/jupiler-pro-league-0:12",
-        "super-lig": "https://www.bwin.be/fr/sports/football-4/paris-sportifs/turquie-31/s%C3%BCper-lig-102832"
+        "super-lig": "https://www.bwin.be/fr/sports/football-4/paris-sportifs/turquie-31/s%C3%BCper-lig-102832",
+        "champions-league": "https://www.bwin.be/en/sports/football-4/betting/europe-7/uefa-champions-league-0:3"
 	},
     'basketball':
     {
@@ -38,10 +39,9 @@ def get_page(competition):
 
     chrome_options = Options()
     chrome_options.add_argument("--headless")
-    service = Service("/home/pi/my_env/bin/chromedriver")
-    driver = webdriver.Chrome(service = service, options=chrome_options)
+    driver = webdriver.Chrome(options=chrome_options)
     driver.get(url)
-    time.sleep(15)
+    time.sleep(5)
 
     return driver
 

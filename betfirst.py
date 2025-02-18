@@ -21,7 +21,8 @@ competition_urls = {
         "a-league": "https://betfirst.dhnet.be/football/australie-league-a/",
         "bundesliga-austria": "https://betfirst.dhnet.be/football/autriche-bundesliga/",
         "division-1a": "https://betfirst.dhnet.be/football/belgique-jupiler-pro-league/",
-        "super-lig": "https://betfirst.dhnet.be/football/turquie-super-lig/"
+        "super-lig": "https://betfirst.dhnet.be/football/turquie-super-lig/",
+        "champions-league": "https://betfirst.dhnet.be/football/europe-ligue-des-champions/"
 	},
     'basketball':
     {
@@ -40,10 +41,9 @@ def get_page(competition):
         return None
     chrome_options = Options()
     chrome_options.add_argument("--headless")  # Active le mode headless
-    service = Service("/home/pi/my_env/bin/chromedriver")
-    driver = webdriver.Chrome(service = service, options=chrome_options)
+    driver = webdriver.Chrome(options=chrome_options)
     driver.get(url)
-    time.sleep(15)
+    time.sleep(5)
 
     return driver  # Retourne le driver pour pouvoir interagir avec la page
     
