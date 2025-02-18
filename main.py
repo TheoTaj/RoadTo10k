@@ -75,14 +75,18 @@ def get_all_arbs():
     print("Time for super lig: ", round(end - start, 2), " s")
     print()
 
+    start = t.time()
+    arb.arb_champions_league()
+    end = t.time()
+    print("Time for champions league: ", round(end - start, 2), " s")
+    print()
+
     endTotal = t.time()
     print("Total time: ", round(endTotal - startTotal, 2), " s")
 
 
 
 
-# sim1 = arb.str_similarity("Royale Union SG", "Union SG")
-# print("sim1: ", sim1)
 
 # sim2 = arb.str_similarity("Royale Union SG", "Union Saint-Gilloise")
 # print("sim2: ", sim2)
@@ -103,11 +107,11 @@ def get_all_arbs():
 # games = betcenter.get_games({"sport": "football", "competition": "ligue1"})
 # print(games)
 
-start = t.time()
-arb.arb_champions_league()
-end = t.time()
-print("Time for ligue1: ", round(end - start, 2), " s")
-print()
+# start = t.time()
+# arb.arb_champions_league()
+# end = t.time()
+# print("Time for ligue1: ", round(end - start, 2), " s")
+# print()
 
-# get_all_arbs()
+get_all_arbs()
 
