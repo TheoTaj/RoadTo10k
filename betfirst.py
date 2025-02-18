@@ -22,7 +22,8 @@ competition_urls = {
         "bundesliga-austria": "https://betfirst.dhnet.be/football/autriche-bundesliga/",
         "division-1a": "https://betfirst.dhnet.be/football/belgique-jupiler-pro-league/",
         "super-lig": "https://betfirst.dhnet.be/football/turquie-super-lig/",
-        "champions-league": "https://betfirst.dhnet.be/football/europe-ligue-des-champions/"
+        "champions-league": "https://betfirst.dhnet.be/football/europe-ligue-des-champions/",
+        "europa-league": "https://betfirst.dhnet.be/football/europe-ligue-europa/"
 	},
     'basketball':
     {

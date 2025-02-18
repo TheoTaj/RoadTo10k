@@ -45,6 +45,7 @@ mismatch_division_1a = [["Oud-HeverleeLeuven", "Louvain"], ["Oud-Heverlee Leuven
 
 mismatch_super_lig = []
 
+dismatch = [["Linzer ASK", "Grazer AK"], ]
 
 
 # renvoie la similarité entre deux chaines de caractères
@@ -87,8 +88,19 @@ def get_game(game, others, mismatch_pairs):
             if [game[1], m_obj[1]] == mismatch or [m_obj[1], game[1]] == mismatch:
                 sim2 = True
 
+    for dis in dismatch:
+        if sim1 is True:
+            if [game[0], m_obj[0]] == dis or [m_obj[0], game[0]] == dis:
+                sim1 = None
+        
+        if sim2 is True:
+            if [game[1], m_obj[1]] == dis or [m_obj[1], game[1]] == dis:
+                sim2 = None
+        
+
     if sim1 is None or sim2 is None:
         return None
+
     return m_obj
 
 #max_odds contient des tuples qui contiennent le nom du casino et sa cote
@@ -578,6 +590,42 @@ def arb_champions_league():
     mismatch = mismatch_ligue1 + mismatch_liga + mismatch_bundesliga + mismatch_premier_league + msimatch_serie_a + mismatch_primeria + mismatch_a_league + mismatch_bundesliga_austria + mismatch_division_1a + mismatch_super_lig
     get_arbs(bookies, mismatch)
     return 
+
+def arb_europa_league():
+    bookies = []
+
+    zebetGames = zebet.get_games({"sport": "football", "competition": "europa-league"})
+    betfirstGames = betfirst.get_games({"sport": "football", "competition": "europa-league"})
+    ladbrokesGames = ladbrokes.get_games({"sport": "football", "competition": "europa-league"})
+    bwinGames = bwin.get_games({"sport":"football", "competition":"europa-league"})
+    napoleonGames = napoleon.get_games({"sport": "football", "competition": "europa-league"})
+    unibetGames = unibet.get_games({"sport": "football", "competition": "europa-league"})
+    betcenterGames = betcenter.get_games({"sport": "football", "competition": "europa-league"})
+
+    print("len betfirstGames", len(betfirstGames))
+    print("len zebetGames", len(zebetGames))
+    print("len ladbrokesGames", len(ladbrokesGames))
+    print("len bwinGames", len(bwinGames))
+    print("len napoleonGames", len(napoleonGames))
+    print("len unibetGames", len(unibetGames))
+    print("len betcenterGames", len(betcenterGames))
+
+    bookies.append(("zebet", zebetGames))
+    bookies.append(("betfirst", betfirstGames))
+    bookies.append(("ladbrokes", ladbrokesGames))
+    bookies.append(("bwin", bwinGames))
+    bookies.append(("napoleon", napoleonGames))
+    bookies.append(("unibet", unibetGames))
+    bookies.append(("betcenter", betcenterGames))
+
+    bookies.sort(key=lambda x: len(x[1]), reverse=True)
+    for bo in bookies:
+        print(bo)
+
+    mismatch = mismatch_ligue1 + mismatch_liga + mismatch_bundesliga + mismatch_premier_league + msimatch_serie_a + mismatch_primeria + mismatch_a_league + mismatch_bundesliga_austria + mismatch_division_1a + mismatch_super_lig
+    get_arbs(bookies, mismatch)
+    return 
+
 
 def arb_nba():
     bookies = []

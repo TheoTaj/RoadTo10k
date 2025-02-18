@@ -81,6 +81,12 @@ def get_all_arbs():
     print("Time for champions league: ", round(end - start, 2), " s")
     print()
 
+    start = t.time()
+    arb.arb_europa_league()
+    end = t.time()
+    print("Time for champions league: ", round(end - start, 2), " s")
+    print()
+
     endTotal = t.time()
     print("Total time: ", round(endTotal - startTotal, 2), " s")
 
@@ -104,11 +110,11 @@ def get_all_arbs():
 
 # arb.get_arbs(bookies)
 
-# games = betcenter.get_games({"sport": "football", "competition": "ligue1"})
+# games = unibet.get_basket({"sport": "basketball", "competition": "nba"})
 # print(games)
 
 # start = t.time()
-# arb.arb_champions_league()
+# arb.arb_europa_league()
 # end = t.time()
 # print("Time for ligue1: ", round(end - start, 2), " s")
 # print()

@@ -20,7 +20,8 @@ competition_urls = {
         "bundesliga-austria": "https://napoleonsports.be/fr-be/sport-bets/football/austria/bundesliga/all",
         "division-1a": "https://napoleonsports.be/fr-be/sport-bets/football/belgium/jupiler-pro-league/all",
         "super-lig": "https://napoleonsports.be/fr-be/sport-bets/football/turkey/super-lig/all",
-        "champions-league": "https://napoleonsports.be/fr-be/sport-bets/football/international-clubs/uefa-champions-league/all?cpi=7&ct=m"
+        "champions-league": "https://napoleonsports.be/fr-be/sport-bets/football/international-clubs/uefa-champions-league/all?cpi=7&ct=m",
+        "europa-league": "https://napoleonsports.be/fr-be/sport-bets/football/international-clubs/uefa-europa-league/all?cpi=679&ct=m"
 	},
     'basketball':
     {

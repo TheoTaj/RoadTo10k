@@ -21,7 +21,8 @@ competition_urls = {
         "bundesliga-austria": "https://www.betcenter.be/fr/football/autriche-bundesliga",
         "division-1a": "https://www.betcenter.be/fr/football/belgique-pro-league",
         "super-lig": "https://www.betcenter.be/fr/football/turquie-super-lig",
-        "champions-league": "https://www.betcenter.be/fr/football/ligue-des-champions-de-l-uefa"
+        "champions-league": "https://www.betcenter.be/fr/football/ligue-des-champions-de-l-uefa",
+        "europa-league": "https://www.betcenter.be/fr/ligue-europa"
 	},
     'basketball':
     {
@@ -76,7 +77,7 @@ def get_games(competition):
 
         split2 = elements2[i].text.split("\n")
         if len(split2) < 6:
-            print("in continue2")
+            # print("in continue2")
             continue
         try:
             a = float(split2[1])

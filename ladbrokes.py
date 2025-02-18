@@ -20,7 +20,8 @@ competition_urls = {
         "bundesliga-austria": "https://www.ladbrokes.be/fr/sports/#!/calcio/at-bundesliga/",
         "division-1a": "https://www.ladbrokes.be/fr/sports/#!/calcio/be-jupiler-pro-league1/",
         "super-lig": "https://www.ladbrokes.be/fr/sports/#!/calcio/tr-super-lig/",
-        "champions-league": "https://www.ladbrokes.be/fr/sports/#!/calcio/eu-champions-league/"
+        "champions-league": "https://www.ladbrokes.be/fr/sports/#!/calcio/eu-champions-league/",
+        "europa-league": "https://www.ladbrokes.be/fr/sports/#!/calcio/eu-europa-league/"
 	},
     'basketball':
     {

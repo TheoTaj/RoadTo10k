@@ -21,14 +21,14 @@ competition_urls = {
         "bundesliga-austria": "https://fr.unibetsports.be/betting/sports/filter/football/austria/bundesliga/all/matches",
         "division-1a": "https://fr.unibetsports.be/betting/sports/filter/football/belgium/jupiler_pro_league/all/matches",
         "super-lig": "https://fr.unibetsports.be/betting/sports/filter/football/turkey/super_lig/all/matches",
-        "champions-league": "https://fr.unibetsports.be/betting/sports/filter/football/champions_league/all/matches"
+        "champions-league": "https://fr.unibetsports.be/betting/sports/filter/football/champions_league/all/matches",
+        "europa-league": "https://fr.unibetsports.be/betting/sports/filter/football/europa_league/all/matches"
 	},
     'basketball':
     {
-        "nba": "https://www.ladbrokes.be/fr/sports/#!/basket/us-nba/",
+        "nba": "https://fr.unibetsports.be/betting/sports/filter/basketball/nba/all/matches",
 		"euroleague": "https://www.ladbrokes.be/fr/sports/#!/basket/eu-eurolega/"
     }
-
 }
 
 def get_page(competition):
@@ -79,5 +79,43 @@ def get_games(competition):
             continue
         
         games.append((team1, team2, [a, b, c]))
+    
+    return games
+
+def get_basket(competition):
+    driver = get_page(competition)
+    games = []
+
+    if driver is None:
+        print("Driver is none")
+        return []
+
+    try:
+        elements1 = driver.find_elements(By.CLASS_NAME, "_1dfe7")
+        elements2 = driver.find_elements(By.CLASS_NAME, "bb419")
+    except:
+        print("Erreur lors de la récupération des données")
+        return []
+
+    diff = abs(len(elements1) - len(elements2))
+
+    for i in range(min(len(elements1), len(elements2))):
+        # split1 = elements1[i + diff].text.split("\n")
+        # split2 = elements2[i].text.split("\n")
+
+        # team1 = split1[0]
+        # team2 = split1[1]
+        # try:
+        #     a = float(split2[0])
+        #     b = float(split2[1])
+        #     c = float(split2[2])
+        # except:
+        #     continue
+        
+        # games.append((team1, team2, [a, b, c]))
+        print(elements1[i].text)
+        print()
+        print(elements2[i].text)
+        print("___________________")
     
     return games
