@@ -134,5 +134,4 @@ while True:
     endTotal = t.time()
     delta = round(endTotal - startTotal, 2)
     print("Total time: ", delta, " s")
-
-    time.sleep(3600 - delta)
+    t.sleep(3600 - delta)
