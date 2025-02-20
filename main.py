@@ -83,7 +83,7 @@ def get_all_arbs():
     message += "Time for europa league " + str(round(end - start, 2)) + " s\n"
 
     start = t.time()
-    messagae += arb.arb_conference_league()
+    message += arb.arb_conference_league()
     end = t.time()
     message += "Time for conference league " + str(round(end - start, 2)) + " s\n"
 
