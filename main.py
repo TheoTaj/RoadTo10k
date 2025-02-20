@@ -12,92 +12,85 @@ import unibet
 import betcenter
 import circus
 import scooore
+from datetime import datetime
+
 
 # don't forget to : export DISPLAY=:0 on wsl !!
 
 def get_all_arbs():
+    
+    message = ""
     startTotal = t.time()
-    start = t.time()
-    arb.arb_ligue1()
-    end = t.time()
-    print("Time for ligue1: ", round(end - start, 2), " s")
-    print()
 
     start = t.time()
-    arb.arb_liga()
+    message += arb.arb_premier_league()
     end = t.time()
-    print("Time for liga: ", round(end - start, 2), " s")
-    print()
+    message += "Time for premier league " + str(round(end - start, 2)) + " s\n"
 
     start = t.time()
-    arb.arb_bundesliga()
+    message += arb.arb_ligue1()
     end = t.time()
-    print("Time for bundesliga: ", round(end - start, 2), " s")
-    print()
+    message += "Time for ligue1 " + str(round(end - start, 2)) + " s\n"
 
     start = t.time()
-    arb.arb_premier_league()
+    message += arb.arb_liga()
     end = t.time()
-    print("Time for premier league: ", round(end - start, 2), " s")
-    print()
+    message += "Time for liga " + str(round(end - start, 2)) + " s\n"
 
     start = t.time()
-    arb.arb_serie_a()
+    message += arb.arb_bundesliga()
     end = t.time()
-    print("Time for serie a: ", round(end - start, 2), " s")
-    print()
+    message += "Time for bundesliga " + str(round(end - start, 2)) + " s\n"
 
     start = t.time()
-    arb.arb_primeira()
+    message += arb.arb_serie_a()
     end = t.time()
-    print("Time for primeira: ", round(end - start, 2), " s")
-    print()
+    message += "Time for serie a " + str(round(end - start, 2)) + " s\n"
 
     start = t.time()
-    arb.arb_a_league()
+    message += arb.arb_primeira()
     end = t.time()
-    print("Time for a league: ", round(end - start, 2), " s")
-    print()
+    message += "Time for primeira " + str(round(end - start, 2)) + " s\n"
 
     start = t.time()
-    arb.arb_bundesliga_austria()
+    message += arb.arb_a_league()
     end = t.time()
-    print("Time for bundesliga austria: ", round(end - start, 2), " s")
-    print()
+    message += "Time for a league " + str(round(end - start, 2)) + " s\n"
 
     start = t.time()
-    arb.arb_division_1a()
+    message += arb.arb_bundesliga_austria()
     end = t.time()
-    print("Time for division 1a: ", round(end - start, 2), " s")
-    print()
+    message += "Time for bundesliga austria " + str(round(end - start, 2)) + " s\n"
 
     start = t.time()
-    arb.arb_super_lig()
+    message += arb.arb_division_1a()
     end = t.time()
-    print("Time for super lig: ", round(end - start, 2), " s")
-    print()
+    message += "Time for division 1a " + str(round(end - start, 2)) + " s\n"
 
     start = t.time()
-    arb.arb_champions_league()
+    message += arb.arb_super_lig()
     end = t.time()
-    print("Time for champions league: ", round(end - start, 2), " s")
-    print()
+    message += "Time for super lig " + str(round(end - start, 2)) + " s\n"
 
     start = t.time()
-    arb.arb_europa_league()
+    message += arb.arb_champions_league()
     end = t.time()
-    print("Time for europa league: ", round(end - start, 2), " s")
-    print()
+    message += "Time for champions league " + str(round(end - start, 2)) + " s\n"
 
     start = t.time()
-    arb.arb_conference_league()
+    message += arb.arb_europa_league()
     end = t.time()
-    print("Time for conference league: ", round(end - start, 2), " s")
-    print()
+    message += "Time for europa league " + str(round(end - start, 2)) + " s\n"
+
+    start = t.time()
+    messagae += arb.arb_conference_league()
+    end = t.time()
+    message += "Time for conference league " + str(round(end - start, 2)) + " s\n"
 
     endTotal = t.time()
-    print("Total time: ", round(endTotal - startTotal, 2), " s")
+    message += "Total time: " + str(round(endTotal - startTotal, 2)) + " s\n"
 
+    return message
 
 #_________________________________________________________________________________________
 # similarity test:
@@ -119,13 +112,21 @@ def get_all_arbs():
 
 # single league test w all bookmakers:
 
-start = t.time()
-arb.arb_conference_league()
-end = t.time()
-print("Time for ligue1: ", round(end - start, 2), " s")
-print()
+# start = t.time()
+# arb.arb_conference_league()
+# end = t.time()
+# print("Time for ligue1: ", round(end - start, 2), " s")
+# print()
 
 #_________________________________________________________________________________________
 
-# get_all_arbs()
+
+message = get_all_arbs()
+now = datetime.now()
+date_heure = now.strftime("%Y-%m-%d %H:%M:%S")
+message += date_heure
+with open("message.txt", "w") as file:
+    file.write(message)
+
+log.send_file_to_discord("message.txt", message="Details de " + date_heure + " :")
 

@@ -29,7 +29,7 @@ mismatch_premier_league = [
     ["Wolverhampton", "Wolves"], ["Wolverhampton", "Wolverhampton Wanderers FC"], ["Wolverhampton Wanderers FC", "Wolves"], ["Newcastle", "Newcastle United FC"],
     ["Manchester City FC", "Man City"], ["ManchesterCity", "Man City"]]
 
-msimatch_serie_a = [["Cagliari", "Cagliari Calcio"], ["AtalantaBergame", "Atalanta"], ["Atalanta Bergame", "Atalanta"],
+mismatch_serie_a = [["Cagliari", "Cagliari Calcio"], ["AtalantaBergame", "Atalanta"], ["Atalanta Bergame", "Atalanta"],
     ["Hellas", "HellasVerone"], ["Hellas", "Hellas Vérone"], ["Hellas", "Hellas Verone"], ["Como 1907", "Come"], ["Como", "Como 1907"], ["Côme", "Como 1907"],
     ["Udinese", "Udinese Calcio"], ["Monza Brianza", "ACMonza"], ["Monza Brianza", "AC Monza"], ["Monza Brianza", "Monza"], ["Parme Calcio", "ParmeFC"], ["Parme Calcio", "Parme"],
     ["Inter", "InterMilan"], ["Inter", "Inter Milan"], ["Venise", "Venezia"]]
@@ -48,7 +48,7 @@ mismatch_division_1a = [["Oud-HeverleeLeuven", "Louvain"], ["Oud-Heverlee Leuven
 
 mismatch_super_lig = []
 
-dismatch = [["Linzer ASK", "Grazer AK"], ["Western Sydney", "WesternUnitedFC"]]
+dismatch = [["Linzer ASK", "Grazer AK"], ["Western Sydney", "WesternUnitedFC"], ["Sivasspor", "Rizespor"], ["Konyaspor Club", "Alanyaspor"]]
 
 
 # renvoie la similarité entre deux chaines de caractères
@@ -71,7 +71,7 @@ def get_game(game, others, mismatch_pairs):
             m_obj = other
 
     if m_obj is None:
-        print("No match found for " + game[0] + " vs " + game[1])
+        # print("No match found for " + game[0] + " vs " + game[1])
         return None
 
     sim1 = None
@@ -156,7 +156,7 @@ def get_arbs(bookies, mismatch_pairs):
 
     gamesOfBookie0 = bookies[0][1]
     nameOfBookie0 = bookies[0][0]
-
+    message = ""
     for game in gamesOfBookie0:
         
         # others doit contenir des tuples qui contiennent le nom du casino et la partie du casino
@@ -169,11 +169,11 @@ def get_arbs(bookies, mismatch_pairs):
                 others.append(tuple_info)
 
         if not others:
-            print("No match found for " + game[0] + " vs " + game[1])
+            message += f"No match found for {game[0]} vs {game[1]}\n"
             continue
-        
-        print("len of others ", len(others))
-        print("others ", others)
+        message += f"len of others {len(others)}\n"
+        message += f"others {others}\n"
+
         max_odds = get_max_odds((nameOfBookie0, game), others)
         if max_odds is None:
             continue
@@ -185,21 +185,20 @@ def get_arbs(bookies, mismatch_pairs):
         if (res) < 1:
             taux = (1 - res) * 100 + 100
             opti_bet = get_opti_bet(max_odds, res)
-            print("Arbitrage trouvé " + str(round(taux, 2)) + "%")
-            print("Match: " + game[0] + " vs " + game[1])
-            print("Odds a = " + str(round(a, 2)) + " chez " + max_odds[0][0] + " Mise = " + str(round(opti_bet[0], 2)) + "%")
-            print("Odds b = " + str(b) + " chez " + max_odds[1][0] + " Mise = " + str(round(opti_bet[1], 2)) + "%")
-            print("Odds c = " + str(c) + " chez " + max_odds[2][0] + " Mise = " + str(round(opti_bet[2], 2)) + "%")
-
             text = "Arbitrage trouvé " + str(round(taux, 2)) + "%\n" + "Match: " + game[0] + " vs " + game[1] + "\n" + "Odds a = " + str(round(a, 2)) + " chez " + max_odds[0][0] + " Mise = " + str(round(opti_bet[0], 2)) + "%\n" + "Odds b = " + str(b) + " chez " + max_odds[1][0] + " Mise = " + str(round(opti_bet[1], 2)) + "%\n" + "Odds c = " + str(c) + " chez " + max_odds[2][0] + " Mise = " + str(round(opti_bet[2], 2)) + "%\n"
             log.discord(text)
+            message += text
         else :
             taux = (1 - res) * 100 + 100
-            print("Pas d'arbitrage " + str(round(taux, 2)) + "%")
-            print("Match: " + game[0] + " vs " + game[1])
-            print("Odds a = " + str(a) + " chez " + max_odds[0][0])
-            print("Odds b = " + str(b) + " chez " + max_odds[1][0])
-            print("Odds c = " + str(c) + " chez " + max_odds[2][0])
+            message += "Pas d'arbitrage " + str(round(taux, 2)) + "%\n"
+            message += "Match: " + game[0] + " vs " + game[1] + "\n"
+            message += "Odds a = " + str(a) + " chez " + max_odds[0][0] + "\n"
+            message += "Odds b = " + str(b) + " chez " + max_odds[1][0] + "\n"
+            message += "Odds c = " + str(c) + " chez " + max_odds[2][0] + "\n"
+
+    message += "\n"
+    return message
+
             
 
 
@@ -207,7 +206,7 @@ def get_arbs(bookies, mismatch_pairs):
 def arb_ligue1():
     # créer un tableau qui contient à chaque case un tuple contenant le nom du casino et les games
     bookies = []
-
+    message = ""
 
     betfirstGames = betfirst.get_games({"sport": "football", "competition": "ligue1"})
     zebetGames = zebet.get_games({"sport": "football", "competition": "ligue1"})
@@ -218,14 +217,16 @@ def arb_ligue1():
     betcenterGames = betcenter.get_games({"sport": "football", "competition": "ligue1"})
     scoooreGames = scooore.get_games({"sport": "football", "competition": "ligue1"})
     
-    print("len betfirstGames", len(betfirstGames))
-    print("len zebetGames", len(zebetGames))
-    print("len ladbrokesGames", len(ladbrokesGames))
-    print("len bwinGames", len(bwinGames))
-    print("len napoleonGames", len(napoleonGames))
-    print("len unibetGames", len(unibetGames))
-    print("len betcenterGames", len(betcenterGames))
-    print("len scoooreGames", len(scoooreGames))
+
+    message += "len betfirstGames " + str(len(betfirstGames)) + "\n"
+    message += "len zebetGames " + str(len(zebetGames)) + "\n"
+    message += "len ladbrokesGames " + str(len(ladbrokesGames)) + "\n"
+    message += "len bwinGames " + str(len(bwinGames)) + "\n"
+    message += "len napoleonGames " + str(len(napoleonGames)) + "\n"
+    message += "len unibetGames " + str(len(unibetGames)) + "\n"
+    message += "len betcenterGames " + str(len(betcenterGames)) + "\n"
+    message += "len scoooreGames " + str(len(scoooreGames)) + "\n"
+
 
     bookies.append(("zebet", zebetGames))
     bookies.append(("betfirst", betfirstGames))
@@ -237,13 +238,19 @@ def arb_ligue1():
     bookies.append(("scooore", scoooreGames))
     
     bookies.sort(key=lambda x: len(x[1]), reverse=True)
-    for bo in bookies:
-        print(bo)
+
     
-    get_arbs(bookies, mismatch_ligue1)
+    for bo in bookies:
+        message += str(bo) + "\n"
+
+
+    message += get_arbs(bookies, mismatch_ligue1)
+    return message
 
 def arb_liga():
     bookies = []
+    message = ""
+
 
     
     zebetGames = zebet.get_games({"sport": "football", "competition": "liga"})
@@ -255,14 +262,14 @@ def arb_liga():
     betcenterGames = betcenter.get_games({"sport": "football", "competition": "liga"})
     scoooreGames = scooore.get_games({"sport": "football", "competition": "liga"})
 
-    print("len betfirstGames", len(betfirstGames))
-    print("len zebetGames", len(zebetGames))
-    print("len ladbrokesGames", len(ladbrokesGames))
-    print("len bwinGames", len(bwinGames))
-    print("len napoleonGames", len(napoleonGames))
-    print("len unibetGames", len(unibetGames))
-    print("len betcenterGames", len(betcenterGames))
-    print("len scoooreGames", len(scoooreGames))
+    message += "len betfirstGames " + str(len(betfirstGames)) + "\n"
+    message += "len zebetGames " + str(len(zebetGames)) + "\n"
+    message += "len ladbrokesGames " + str(len(ladbrokesGames)) + "\n"
+    message += "len bwinGames " + str(len(bwinGames)) + "\n"
+    message += "len napoleonGames " + str(len(napoleonGames)) + "\n"
+    message += "len unibetGames " + str(len(unibetGames)) + "\n"
+    message += "len betcenterGames " + str(len(betcenterGames)) + "\n"
+    message += "len scoooreGames " + str(len(scoooreGames)) + "\n"
 
     bookies.append(("zebet", zebetGames))
     bookies.append(("betfirst", betfirstGames))
@@ -276,14 +283,16 @@ def arb_liga():
     bookies.sort(key=lambda x: len(x[1]), reverse=True)
 
     for bo in bookies:
-        print(bo)
-        
-    get_arbs(bookies, mismatch_liga)
+        message += str(bo) + "\n"
 
-    return bookies
+
+    message += get_arbs(bookies, mismatch_liga)
+    return message
 
 def arb_bundesliga():
     bookies = []
+    message = ""
+
 
     zebetGames = zebet.get_games({"sport": "football", "competition": "bundesliga"})
     betfirstGames = betfirst.get_games({"sport": "football", "competition": "bundesliga"})
@@ -294,14 +303,14 @@ def arb_bundesliga():
     betcenterGames = betcenter.get_games({"sport": "football", "competition": "bundesliga"})
     scoooreGames = scooore.get_games({"sport": "football", "competition": "bundesliga"})
 
-    print("len betfirstGames", len(betfirstGames))
-    print("len zebetGames", len(zebetGames))
-    print("len ladbrokesGames", len(ladbrokesGames))
-    print("len bwinGames", len(bwinGames))
-    print("len napoleonGames", len(napoleonGames))
-    print("len unibetGames", len(unibetGames))
-    print("len betcenterGames", len(betcenterGames))
-    print("len scoooreGames", len(scoooreGames))
+    message += "len betfirstGames " + str(len(betfirstGames)) + "\n"
+    message += "len zebetGames " + str(len(zebetGames)) + "\n"
+    message += "len ladbrokesGames " + str(len(ladbrokesGames)) + "\n"
+    message += "len bwinGames " + str(len(bwinGames)) + "\n"
+    message += "len napoleonGames " + str(len(napoleonGames)) + "\n"
+    message += "len unibetGames " + str(len(unibetGames)) + "\n"
+    message += "len betcenterGames " + str(len(betcenterGames)) + "\n"
+    message += "len scoooreGames " + str(len(scoooreGames)) + "\n"
 
     bookies.append(("zebet", zebetGames))
     bookies.append(("betfirst", betfirstGames))
@@ -315,15 +324,16 @@ def arb_bundesliga():
     bookies.sort(key=lambda x: len(x[1]), reverse=True)
 
     for bo in bookies:
-        print(bo)
-        
-    get_arbs(bookies, mismatch_bundesliga)
+        message += str(bo) + "\n"
 
-    return bookies
+
+    message += get_arbs(bookies, mismatch_bundesliga)
+    return message
 
 def arb_premier_league():
 
     bookies = []
+    message = ""
 
     zebetGames = zebet.get_games({"sport": "football", "competition": "premier-league"})
     betfirstGames = betfirst.get_games({"sport": "football", "competition": "premier-league"})
@@ -334,14 +344,14 @@ def arb_premier_league():
     betcenterGames = betcenter.get_games({"sport": "football", "competition": "premier-league"})
     scoooreGames = scooore.get_games({"sport": "football", "competition": "premier-league"})
 
-    print("len betfirstGames", len(betfirstGames))
-    print("len zebetGames", len(zebetGames))
-    print("len ladbrokesGames", len(ladbrokesGames))
-    print("len bwinGames", len(bwinGames))
-    print("len napoleonGames", len(napoleonGames))
-    print("len unibetGames", len(unibetGames))
-    print("len betcenterGames", len(betcenterGames))
-    print("len scoooreGames", len(scoooreGames))
+    message += "len betfirstGames " + str(len(betfirstGames)) + "\n"
+    message += "len zebetGames " + str(len(zebetGames)) + "\n"
+    message += "len ladbrokesGames " + str(len(ladbrokesGames)) + "\n"
+    message += "len bwinGames " + str(len(bwinGames)) + "\n"
+    message += "len napoleonGames " + str(len(napoleonGames)) + "\n"
+    message += "len unibetGames " + str(len(unibetGames)) + "\n"
+    message += "len betcenterGames " + str(len(betcenterGames)) + "\n"
+    message += "len scoooreGames " + str(len(scoooreGames)) + "\n"
 
     bookies.append(("zebet", zebetGames))
     bookies.append(("betfirst", betfirstGames))
@@ -355,14 +365,16 @@ def arb_premier_league():
     bookies.sort(key=lambda x: len(x[1]), reverse=True)
 
     for bo in bookies:
-        print(bo)
-        
-    get_arbs(bookies, mismatch_premier_league)
+        message += str(bo) + "\n"
 
-    return bookies
+
+    message += get_arbs(bookies, mismatch_premier_league)
+    return message
 
 def arb_serie_a():
     bookies = []
+    message = ""
+
 
 	
     zebetGames = zebet.get_games({"sport": "football", "competition": "serie-a"})
@@ -374,14 +386,14 @@ def arb_serie_a():
     betcenterGames = betcenter.get_games({"sport": "football", "competition": "serie-a"})
     scoooreGames = scooore.get_games({"sport": "football", "competition": "serie-a"})
 
-    print("len betfirstGames", len(betfirstGames))
-    print("len zebetGames", len(zebetGames))
-    print("len ladbrokesGames", len(ladbrokesGames))
-    print("len bwinGames", len(bwinGames))
-    print("len napoleonGames", len(napoleonGames))
-    print("len unibetGames", len(unibetGames))
-    print("len betcenterGames", len(betcenterGames))
-    print("len scoooreGames", len(scoooreGames))
+    message += "len betfirstGames " + str(len(betfirstGames)) + "\n"
+    message += "len zebetGames " + str(len(zebetGames)) + "\n"
+    message += "len ladbrokesGames " + str(len(ladbrokesGames)) + "\n"
+    message += "len bwinGames " + str(len(bwinGames)) + "\n"
+    message += "len napoleonGames " + str(len(napoleonGames)) + "\n"
+    message += "len unibetGames " + str(len(unibetGames)) + "\n"
+    message += "len betcenterGames " + str(len(betcenterGames)) + "\n"
+    message += "len scoooreGames " + str(len(scoooreGames)) + "\n"
 	
     bookies.append(("zebet", zebetGames))
     bookies.append(("betfirst", betfirstGames))
@@ -394,14 +406,16 @@ def arb_serie_a():
 
     bookies.sort(key=lambda x: len(x[1]), reverse=True)
     for bo in bookies:
-        print(bo)
+        message += str(bo) + "\n"
 
-    get_arbs(bookies, msimatch_serie_a)
 
-    return bookies
+    message += get_arbs(bookies, mismatch_serie_a)
+    return message
 
 def arb_primeira():
     bookies = []
+    message = ""
+    
     
     zebetGames = zebet.get_games({"sport": "football", "competition": "primeira"})
     betfirstGames = betfirst.get_games({"sport": "football", "competition": "primeira"})
@@ -412,14 +426,14 @@ def arb_primeira():
     betcenterGames = betcenter.get_games({"sport": "football", "competition": "primeira"})
     scoooreGames = scooore.get_games({"sport": "football", "competition": "primeira"})
 
-    print("len betfirstGames", len(betfirstGames))
-    print("len zebetGames", len(zebetGames))
-    print("len ladbrokesGames", len(ladbrokesGames))
-    print("len bwinGames", len(bwinGames))
-    print("len napoleonGames", len(napoleonGames))
-    print("len unibetGames", len(unibetGames))
-    print("len betcenterGames", len(betcenterGames))
-    print("len scoooreGames", len(scoooreGames))
+    message += "len betfirstGames " + str(len(betfirstGames)) + "\n"
+    message += "len zebetGames " + str(len(zebetGames)) + "\n"
+    message += "len ladbrokesGames " + str(len(ladbrokesGames)) + "\n"
+    message += "len bwinGames " + str(len(bwinGames)) + "\n"
+    message += "len napoleonGames " + str(len(napoleonGames)) + "\n"
+    message += "len unibetGames " + str(len(unibetGames)) + "\n"
+    message += "len betcenterGames " + str(len(betcenterGames)) + "\n"
+    message += "len scoooreGames " + str(len(scoooreGames)) + "\n"
 
     bookies.append(("zebet", zebetGames))
     bookies.append(("betfirst", betfirstGames))
@@ -432,14 +446,16 @@ def arb_primeira():
     
     bookies.sort(key=lambda x: len(x[1]), reverse=True)
     for bo in bookies:
-        print(bo)
+        message += str(bo) + "\n"
 
-    get_arbs(bookies, mismatch_primeria)
 
-    return bookies
+    message += get_arbs(bookies, mismatch_primeria)
+    return message
 
 def arb_a_league():
     bookies = []
+    message = ""
+
 
     zebetGames = zebet.get_games({"sport": "football", "competition": "a-league"})
     betfirstGames = betfirst.get_games({"sport": "football", "competition": "a-league"})
@@ -450,14 +466,14 @@ def arb_a_league():
     betcenterGames = betcenter.get_games({"sport": "football", "competition": "a-league"})
     scoooreGames = scooore.get_games({"sport": "football", "competition": "a-league"})
 
-    print("len betfirstGames", len(betfirstGames))
-    print("len zebetGames", len(zebetGames))
-    print("len ladbrokesGames", len(ladbrokesGames))
-    print("len bwinGames", len(bwinGames))
-    print("len napoleonGames", len(napoleonGames))
-    print("len unibetGames", len(unibetGames))
-    print("len betcenterGames", len(betcenterGames))
-    print("len scoooreGames", len(scoooreGames))
+    message += "len betfirstGames " + str(len(betfirstGames)) + "\n"
+    message += "len zebetGames " + str(len(zebetGames)) + "\n"
+    message += "len ladbrokesGames " + str(len(ladbrokesGames)) + "\n"
+    message += "len bwinGames " + str(len(bwinGames)) + "\n"
+    message += "len napoleonGames " + str(len(napoleonGames)) + "\n"
+    message += "len unibetGames " + str(len(unibetGames)) + "\n"
+    message += "len betcenterGames " + str(len(betcenterGames)) + "\n"
+    message += "len scoooreGames " + str(len(scoooreGames)) + "\n"
 
     bookies.append(("zebet", zebetGames))
     bookies.append(("betfirst", betfirstGames))
@@ -470,14 +486,16 @@ def arb_a_league():
 
     bookies.sort(key=lambda x: len(x[1]), reverse=True)
     for bo in bookies:
-        print(bo)
+        message += str(bo) + "\n"
 
-    get_arbs(bookies, mismatch_a_league)
 
-    return bookies
+    message += get_arbs(bookies, mismatch_a_league)
+    return message
 
 def arb_bundesliga_austria():
     bookies = []
+    message = ""
+
 	
     zebetGames = zebet.get_games({"sport": "football", "competition": "bundesliga-austria"})
     betfirstGames = betfirst.get_games({"sport": "football", "competition": "bundesliga-austria"})
@@ -488,14 +506,14 @@ def arb_bundesliga_austria():
     betcenterGames = betcenter.get_games({"sport": "football", "competition": "bundesliga-austria"})
     scoooreGames = scooore.get_games({"sport": "football", "competition": "bundesliga-austria"})
 
-    print("len betfirstGames", len(betfirstGames))
-    print("len zebetGames", len(zebetGames))
-    print("len ladbrokesGames", len(ladbrokesGames))
-    print("len bwinGames", len(bwinGames))
-    print("len napoleonGames", len(napoleonGames))
-    print("len unibetGames", len(unibetGames))
-    print("len betcenterGames", len(betcenterGames))
-    print("len scoooreGames", len(scoooreGames))
+    message += "len betfirstGames " + str(len(betfirstGames)) + "\n"
+    message += "len zebetGames " + str(len(zebetGames)) + "\n"
+    message += "len ladbrokesGames " + str(len(ladbrokesGames)) + "\n"
+    message += "len bwinGames " + str(len(bwinGames)) + "\n"
+    message += "len napoleonGames " + str(len(napoleonGames)) + "\n"
+    message += "len unibetGames " + str(len(unibetGames)) + "\n"
+    message += "len betcenterGames " + str(len(betcenterGames)) + "\n"
+    message += "len scoooreGames " + str(len(scoooreGames)) + "\n"
 
     bookies.append(("zebet", zebetGames))
     bookies.append(("betfirst", betfirstGames))
@@ -508,13 +526,16 @@ def arb_bundesliga_austria():
 
     bookies.sort(key=lambda x: len(x[1]), reverse=True)
     for bo in bookies:
-        print(bo)
+        message += str(bo) + "\n"
 
-    get_arbs(bookies, mismatch_bundesliga_austria)
-    return 
+
+    message += get_arbs(bookies, mismatch_bundesliga_austria)
+    return message
 
 def arb_division_1a():
     bookies = []
+    message = ""
+
 	
     zebetGames = zebet.get_games({"sport": "football", "competition": "division-1a"})
     betfirstGames = betfirst.get_games({"sport": "football", "competition": "division-1a"})
@@ -525,14 +546,14 @@ def arb_division_1a():
     betcenterGames = betcenter.get_games({"sport": "football", "competition": "division-1a"})
     scoooreGames = scooore.get_games({"sport": "football", "competition": "division-1a"})
 
-    print("len betfirstGames", len(betfirstGames))
-    print("len zebetGames", len(zebetGames))
-    print("len ladbrokesGames", len(ladbrokesGames))
-    print("len bwinGames", len(bwinGames))
-    print("len napoleonGames", len(napoleonGames))
-    print("len unibetGames", len(unibetGames))
-    print("len betcenterGames", len(betcenterGames))
-    print("len scoooreGames", len(scoooreGames))
+    message += "len betfirstGames " + str(len(betfirstGames)) + "\n"
+    message += "len zebetGames " + str(len(zebetGames)) + "\n"
+    message += "len ladbrokesGames " + str(len(ladbrokesGames)) + "\n"
+    message += "len bwinGames " + str(len(bwinGames)) + "\n"
+    message += "len napoleonGames " + str(len(napoleonGames)) + "\n"
+    message += "len unibetGames " + str(len(unibetGames)) + "\n"
+    message += "len betcenterGames " + str(len(betcenterGames)) + "\n"
+    message += "len scoooreGames " + str(len(scoooreGames)) + "\n"
 
     bookies.append(("zebet", zebetGames))
     bookies.append(("betfirst", betfirstGames))
@@ -545,14 +566,16 @@ def arb_division_1a():
 
     bookies.sort(key=lambda x: len(x[1]), reverse=True)
     for bo in bookies:
-        print(bo)
+        message += str(bo) + "\n"
 
-    get_arbs(bookies, mismatch_division_1a)
 
-    return 
+    message += get_arbs(bookies, mismatch_division_1a)
+    return message
 
 def arb_super_lig():
     bookies = []
+    message = ""
+
 
     zebetGames = zebet.get_games({"sport": "football", "competition": "super-lig"})
     betfirstGames = betfirst.get_games({"sport": "football", "competition": "super-lig"})
@@ -563,14 +586,14 @@ def arb_super_lig():
     betcenterGames = betcenter.get_games({"sport": "football", "competition": "super-lig"})
     scoooreGames = scooore.get_games({"sport": "football", "competition": "super-lig"})
 	
-    print("len betfirstGames", len(betfirstGames))
-    print("len zebetGames", len(zebetGames))
-    print("len ladbrokesGames", len(ladbrokesGames))
-    print("len bwinGames", len(bwinGames))
-    print("len napoleonGames", len(napoleonGames))
-    print("len unibetGames", len(unibetGames))
-    print("len betcenterGames", len(betcenterGames))
-    print("len scoooreGames", len(scoooreGames))
+    message += "len betfirstGames " + str(len(betfirstGames)) + "\n"
+    message += "len zebetGames " + str(len(zebetGames)) + "\n"
+    message += "len ladbrokesGames " + str(len(ladbrokesGames)) + "\n"
+    message += "len bwinGames " + str(len(bwinGames)) + "\n"
+    message += "len napoleonGames " + str(len(napoleonGames)) + "\n"
+    message += "len unibetGames " + str(len(unibetGames)) + "\n"
+    message += "len betcenterGames " + str(len(betcenterGames)) + "\n"
+    message += "len scoooreGames " + str(len(scoooreGames)) + "\n"
 
     bookies.append(("zebet", zebetGames))
     bookies.append(("betfirst", betfirstGames))
@@ -583,14 +606,16 @@ def arb_super_lig():
 
     bookies.sort(key=lambda x: len(x[1]), reverse=True)
     for bo in bookies:
-        print(bo)
+        message += str(bo) + "\n"
 
-    get_arbs(bookies, mismatch_super_lig)
 
-    return 
+    message += get_arbs(bookies, mismatch_super_lig)
+    return message
 
 def arb_champions_league():
     bookies = []
+    message = ""
+
 
     zebetGames = zebet.get_games({"sport": "football", "competition": "champions-league"})
     betfirstGames = betfirst.get_games({"sport": "football", "competition": "champions-league"})
@@ -601,14 +626,14 @@ def arb_champions_league():
     betcenterGames = betcenter.get_games({"sport": "football", "competition": "champions-league"})
     scoooreGames = scooore.get_games({"sport": "football", "competition": "champions-league"})
 
-    print("len betfirstGames", len(betfirstGames))
-    print("len zebetGames", len(zebetGames))
-    print("len ladbrokesGames", len(ladbrokesGames))
-    print("len bwinGames", len(bwinGames))
-    print("len napoleonGames", len(napoleonGames))
-    print("len unibetGames", len(unibetGames))
-    print("len betcenterGames", len(betcenterGames))
-    print("len scoooreGames", len(scoooreGames))
+    message += "len betfirstGames " + str(len(betfirstGames)) + "\n"
+    message += "len zebetGames " + str(len(zebetGames)) + "\n"
+    message += "len ladbrokesGames " + str(len(ladbrokesGames)) + "\n"
+    message += "len bwinGames " + str(len(bwinGames)) + "\n"
+    message += "len napoleonGames " + str(len(napoleonGames)) + "\n"
+    message += "len unibetGames " + str(len(unibetGames)) + "\n"
+    message += "len betcenterGames " + str(len(betcenterGames)) + "\n"
+    message += "len scoooreGames " + str(len(scoooreGames)) + "\n"
 
     bookies.append(("zebet", zebetGames))
     bookies.append(("betfirst", betfirstGames))
@@ -619,16 +644,18 @@ def arb_champions_league():
     bookies.append(("betcenter", betcenterGames))
     bookies.append(("scooore", scoooreGames))
 
+    mismatch_champions_league = mismatch_ligue1 + mismatch_liga + mismatch_bundesliga + mismatch_premier_league + mismatch_serie_a + mismatch_primeria + mismatch_a_league + mismatch_bundesliga_austria + mismatch_division_1a + mismatch_super_lig
     bookies.sort(key=lambda x: len(x[1]), reverse=True)
     for bo in bookies:
-        print(bo)
+        message += str(bo) + "\n"
 
-    mismatch = mismatch_ligue1 + mismatch_liga + mismatch_bundesliga + mismatch_premier_league + msimatch_serie_a + mismatch_primeria + mismatch_a_league + mismatch_bundesliga_austria + mismatch_division_1a + mismatch_super_lig
-    get_arbs(bookies, mismatch)
-    return 
+
+    message += get_arbs(bookies, mismatch_champions_league)
+    return message
 
 def arb_europa_league():
     bookies = []
+    message = ""
 
     zebetGames = zebet.get_games({"sport": "football", "competition": "europa-league"})
     betfirstGames = betfirst.get_games({"sport": "football", "competition": "europa-league"})
@@ -639,14 +666,14 @@ def arb_europa_league():
     betcenterGames = betcenter.get_games({"sport": "football", "competition": "europa-league"})
     scoooreGames = scooore.get_games({"sport": "football", "competition": "europa-league"})
 
-    print("len betfirstGames", len(betfirstGames))
-    print("len zebetGames", len(zebetGames))
-    print("len ladbrokesGames", len(ladbrokesGames))
-    print("len bwinGames", len(bwinGames))
-    print("len napoleonGames", len(napoleonGames))
-    print("len unibetGames", len(unibetGames))
-    print("len betcenterGames", len(betcenterGames))
-    print("len scoooreGames", len(scoooreGames))
+    message += "len betfirstGames " + str(len(betfirstGames)) + "\n"
+    message += "len zebetGames " + str(len(zebetGames)) + "\n"
+    message += "len ladbrokesGames " + str(len(ladbrokesGames)) + "\n"
+    message += "len bwinGames " + str(len(bwinGames)) + "\n"
+    message += "len napoleonGames " + str(len(napoleonGames)) + "\n"
+    message += "len unibetGames " + str(len(unibetGames)) + "\n"
+    message += "len betcenterGames " + str(len(betcenterGames)) + "\n"
+    message += "len scoooreGames " + str(len(scoooreGames)) + "\n"
 
     bookies.append(("zebet", zebetGames))
     bookies.append(("betfirst", betfirstGames))
@@ -657,16 +684,19 @@ def arb_europa_league():
     bookies.append(("betcenter", betcenterGames))
     bookies.append(("scooore", scoooreGames))
 
+    mismatch_europa_league = mismatch_ligue1 + mismatch_liga + mismatch_bundesliga + mismatch_premier_league + mismatch_serie_a + mismatch_primeria + mismatch_a_league + mismatch_bundesliga_austria + mismatch_division_1a + mismatch_super_lig
+
     bookies.sort(key=lambda x: len(x[1]), reverse=True)
     for bo in bookies:
-        print(bo)
+        message += str(bo) + "\n"
 
-    mismatch = mismatch_ligue1 + mismatch_liga + mismatch_bundesliga + mismatch_premier_league + msimatch_serie_a + mismatch_primeria + mismatch_a_league + mismatch_bundesliga_austria + mismatch_division_1a + mismatch_super_lig
-    get_arbs(bookies, mismatch)
-    return 
+
+    message += get_arbs(bookies, mismatch_europa_league)
+    return message
 
 def arb_conference_league():
     bookies = []
+    message = ""
 
     zebetGames = zebet.get_games({"sport": "football", "competition": "europa-conference"})
     betfirstGames = betfirst.get_games({"sport": "football", "competition": "europa-conference"})
@@ -677,14 +707,14 @@ def arb_conference_league():
     betcenterGames = betcenter.get_games({"sport": "football", "competition": "europa-conference"})
     scoooreGames = scooore.get_games({"sport": "football", "competition": "europa-conference"})
 
-    print("len betfirstGames", len(betfirstGames))
-    print("len zebetGames", len(zebetGames))
-    print("len ladbrokesGames", len(ladbrokesGames))
-    print("len bwinGames", len(bwinGames))
-    print("len napoleonGames", len(napoleonGames))
-    print("len unibetGames", len(unibetGames))
-    print("len betcenterGames", len(betcenterGames))
-    print("len scoooreGames", len(scoooreGames))
+    message += "len betfirstGames " + str(len(betfirstGames)) + "\n"
+    message += "len zebetGames " + str(len(zebetGames)) + "\n"
+    message += "len ladbrokesGames " + str(len(ladbrokesGames)) + "\n"
+    message += "len bwinGames " + str(len(bwinGames)) + "\n"
+    message += "len napoleonGames " + str(len(napoleonGames)) + "\n"
+    message += "len unibetGames " + str(len(unibetGames)) + "\n"
+    message += "len betcenterGames " + str(len(betcenterGames)) + "\n"
+    message += "len scoooreGames " + str(len(scoooreGames)) + "\n"
 
     bookies.append(("zebet", zebetGames))
     bookies.append(("betfirst", betfirstGames))
@@ -696,56 +726,19 @@ def arb_conference_league():
     bookies.append(("scooore", scoooreGames))
 
     bookies.sort(key=lambda x: len(x[1]), reverse=True)
-    for bo in bookies:
-        print(bo)
+    mismatch_conference_league = mismatch_ligue1 + mismatch_liga + mismatch_bundesliga + mismatch_premier_league + mismatch_serie_a + mismatch_primeria + mismatch_a_league + mismatch_bundesliga_austria + mismatch_division_1a + mismatch_super_lig
 
-    mismatch = mismatch_ligue1 + mismatch_liga + mismatch_bundesliga + mismatch_premier_league + msimatch_serie_a + mismatch_primeria + mismatch_a_league + mismatch_bundesliga_austria + mismatch_division_1a + mismatch_super_lig
-    get_arbs(bookies, mismatch)
-    return     
-
-def arb_nba():
-    bookies = []
-	# pmuGames = []
-    zebetGames = []
-    betfirstGames = []
-    ladbrokesGames = []
-	
-	# pmuGames.append(pmu.get_games({"sport": "basketball", "competition": "nba"}))
-    zebetGames.append(zebet.get_games({"sport": "basketball", "competition": "nba"}))
-    betfirstGames.append(betfirst.get_games({"sport": "basketball", "competition": "nba"}))
-    ladbrokesGames.append(ladbrokes.get_games({"sport": "basketball", "competition": "nba"}))
-	# bookies.append(("pmu", pmuGames))
-    bookies.append(("zebet", zebetGames))
-    bookies.append(("betfirst", betfirstGames))
-    bookies.append(("ladbrokes", ladbrokesGames))
-    print(bookies)
-    get_arbs(bookies)
-
-    return bookies
-
-def arb_euroleague():
-    bookies = []
-	# pmuGames = []
-    zebetGames = []
-    betfirstGames = []
-    ladbrokesGames = []
-	
-	# pmuGames.append(pmu.get_games({"sport": "basketball", "competition": "euroleague"}))
-    zebetGames.append(zebet.get_games({"sport": "basketball", "competition": "euroleague"}))
-    betfirstGames.append(betfirst.get_games({"sport": "basketball", "competition": "euroleague"}))
-    ladbrokesGames.append(ladbrokes.get_games({"sport": "basketball", "competition": "euroleague"}))
-	# bookies.append(("pmu", pmuGames))
-    bookies.append(("zebet", zebetGames))
-    bookies.append(("betfirst", betfirstGames))
-    bookies.append(("ladbrokes", ladbrokesGames))
-    print(bookies)
-    get_arbs(bookies)
-
-    return bookies
     
+    for bo in bookies:
+        message += str(bo) + "\n"
 
 
-#essayé de faire une fonction qui fait le travail de la fonction arb_ligue1 mais pour toutes les ligues 
+    message += get_arbs(bookies, mismatch_conference_league)
+    return message
+
+
+
+
 
 
 			
