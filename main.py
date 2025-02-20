@@ -10,7 +10,6 @@ import log
 import napoleon
 import unibet
 import betcenter
-import circus
 import scooore
 from datetime import datetime
 

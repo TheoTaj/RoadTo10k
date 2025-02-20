@@ -8,7 +8,6 @@ import log
 import napoleon
 import unibet
 import betcenter
-import circus
 import scooore
 
 
