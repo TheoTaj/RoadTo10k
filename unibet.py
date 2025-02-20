@@ -45,7 +45,7 @@ def get_page(competition):
     # driver = webdriver.Chrome(service = service, options=chrome_options)
     driver = webdriver.Chrome(options=chrome_options)
     driver.get(url)
-    time.sleep(5)
+    time.sleep(10)
 
     return driver
 

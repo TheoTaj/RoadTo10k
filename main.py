@@ -111,23 +111,23 @@ def get_all_arbs():
 
 # single league test w all bookmakers:
 
-# start = t.time()
-# arb.arb_conference_league()
-# end = t.time()
-# print("Time for ligue1: ", round(end - start, 2), " s")
-# print()
+start = t.time()
+arb.arb_conference_league()
+end = t.time()
+print("Time for ligue1: ", round(end - start, 2), " s")
+print()
 
 #_________________________________________________________________________________________
 
 
-message = get_all_arbs()
-now = datetime.now()
-date_heure = now.strftime("%Y-%m-%d %H:%M:%S")
-message += date_heure
-with open("message.txt", "w") as file:
-    file.write(message)
+# message = get_all_arbs()
+# now = datetime.now()
+# date_heure = now.strftime("%Y-%m-%d %H:%M:%S")
+# message += date_heure
+# with open("message.txt", "w") as file:
+#     file.write(message)
 
-log.send_file_to_discord("message.txt", message="Details de " + date_heure + " :")
+# log.send_file_to_discord("message.txt", message="Details de " + date_heure + " :")
 
 
 

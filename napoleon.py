@@ -62,7 +62,7 @@ def get_games(competition):
         return []
 
     size = min(len(elements1), len(elements2))
-    print("Napoleon len of size : ", size)
+    # print("Napoleon len of size : ", size)
     for i in range(size):
         split1 = elements1[i].text.split("\n")
         if len(split1) < 2:
