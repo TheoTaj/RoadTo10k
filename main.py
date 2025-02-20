@@ -129,3 +129,5 @@ with open("message.txt", "w") as file:
 
 log.send_file_to_discord("message.txt", message="Details de " + date_heure + " :")
 
+
+

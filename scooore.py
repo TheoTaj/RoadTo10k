@@ -45,7 +45,7 @@ def get_page(competition):
     chrome_options.add_argument("--headless")  # Active le mode headless
     driver = webdriver.Chrome(options=chrome_options)
     driver.get(url)
-    time.sleep(5)
+    time.sleep(10)
 
     return driver  # Retourne le driver pour pouvoir interagir avec la page
     
@@ -63,6 +63,7 @@ def get_games(competition):
         print("Erreur lors de la récupération des données")
         return []
 
+    print("Size of elements1 in scooore : ", len(elements1))
     for el in elements1:
         split = el.text.split("\n")
 
